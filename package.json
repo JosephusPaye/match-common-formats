@@ -1,6 +1,6 @@
 {
   "name": "@josephuspaye/match-common-formats",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Match a piece of text to common formats like URLs, email addresses, colors, and more.",
   "main": "dist/main.js",
   "repository": "https://github.com/JosephusPaye/match-common-formats.git",
