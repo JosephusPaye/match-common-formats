@@ -123,6 +123,8 @@ console.log({ first, second });
 }
 ```
 
+</details>
+
 ## API
 
 ```ts
@@ -185,8 +187,6 @@ function matchIpAddress(string: string): IpAddress | null;
  */
 function match(string: string, matchers?: Matcher[]): Match[];
 ```
-
-</details>
 
 ## Licence
 
