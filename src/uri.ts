@@ -20,14 +20,16 @@ export interface Urn extends Matched {
   namespaceString: string;
 }
 
-// https://regexr.com/5it0q
-const extractTldRegex = /^(?:.+@)?(?:.*\.)?[^.\s]+\.([^:\.\s]+)(?::\d+)?(?:\/.*)?$/;
+// https://regexr.com/5it0q (excludes `scheme://user:pass` part of the URL)
+const extractTldRegex = /^(?:[^:\s]:[^:\s])?(?:[^\.\s/:]+\.)+([^\.\s:/]+)(?::\d+)?(?:\/.*)?$/;
 
 /**
- * Check if the given authority segment has a domain with a known TLD
+ * Check if the given URL segment has a domain with a known TLD.
+ * The segment is a partial URL, with everything after `scheme://user:pass`,
+ * so it could be (authority + path + ...) or (path + ...).
  */
-function hasKnownTld(authority: string): boolean {
-  const match = extractTldRegex.exec(authority);
+function hasKnownTld(segment: string): boolean {
+  const match = extractTldRegex.exec(segment);
 
   if (!match) {
     return false;
@@ -42,7 +44,19 @@ function hasKnownTld(authority: string): boolean {
   return tlds.includes(tld.toUpperCase());
 }
 
-// https://regexr.com/5it54 (excludes the initial `urn:`)
+// https://regexr.com/5it7i (excludes `scheme://user:pass` part of the URL)
+const localhostRegex = /^(?:[^:\s]+:[^:\s]+)?(?:[^\.\s/:]+\.)*(localhost)(?::\d+)?(?:\/.*)?$/;
+
+/**
+ * Check if the given URL segment has the domain `localhost`.
+ * The segment is a partial URL, with everything after `scheme://user:pass`,
+ * so it could be (authority + path + ...) or (path + ...).
+ */
+function hasLocalhost(segment: string) {
+  return localhostRegex.test(segment);
+}
+
+// https://regexr.com/5it54 (excludes the `urn:` prefix)
 const urnRegex = /^([a-zA-Z0-9]+):(.+)$/i;
 
 /**
@@ -61,7 +75,7 @@ function extractUrnAttributes(
   const match = urnRegex.exec(string);
 
   if (match) {
-    attrs.namespaceId = (match[1] ?? '').toLowerCase();
+    attrs.namespaceId = match[1].toLowerCase();
     attrs.namespaceString = match[2];
   }
 
@@ -130,19 +144,31 @@ export function matchUri(string: string): Url | Uri | Urn | null {
       };
     }
   }
-  // If there's a scheme and a path, it's a URI. This covers URIs like
-  // `tel:0123456789` that have no authority segment (`//...`)
+  // If there's a scheme and a path, it's a URI or a localhost URL.
+  // This covers URIs like `tel:0123456789` that have no authority
+  // segment (`//...`), as well as `localhost:...` URLs.
   else if (scheme && path) {
-    return {
-      type: 'uri',
-      label: schemeNormalised + ' URI',
-      matched: match[0],
-      uri: match[0],
-      scheme: schemeNormalised,
-    };
+    // Special handling of `localhost:...`
+    if (schemeNormalised === 'localhost') {
+      return {
+        type: 'url',
+        label: 'Web URL',
+        matched: match[0],
+        url: `http://${match[0]}`,
+        scheme: 'http',
+      };
+    } else {
+      return {
+        type: 'uri',
+        label: schemeNormalised + ' URI',
+        matched: match[0],
+        uri: match[0],
+        scheme: schemeNormalised,
+      };
+    }
   }
   // If there's a scheme and a query, it's a URI. This covers URIs like
-  //` magnet:?xt=urn:btih:c12fe1c06bba254a9dc9f519b335aa7c1367a88a` that
+  // `magnet:?xt=urn:btih:c12fe1c06bba254a9dc9f519b335aa7c1367a88a` that
   // have no authority segment (`//...`) and no path segment (`/...`)
   else if (scheme && query) {
     return {
@@ -153,18 +179,20 @@ export function matchUri(string: string): Url | Uri | Urn | null {
       scheme: schemeNormalised,
     };
   }
-  // If there's no scheme + authority or scheme + path or scheme + query,
-  // then the path might have a URL without the scheme, like `example.com`.
-  // Below we attempt to match those, while excluding paths like
-  // `/example.com` or `example.unknowntldr`
-  else if (path && !path.startsWith('/') && hasKnownTld(path)) {
-    return {
-      type: 'url',
-      label: 'Web URL',
-      matched: match[0],
-      url: `http://${match[0]}`,
-      scheme: 'http',
-    };
+  // If there's no (scheme + authority) or (scheme + path) or (scheme + query),
+  // then the path might have a URL without the scheme, like `example.com` or
+  // `localhost`. Below we attempt to match those, while excluding paths
+  // like `/example.com` or `example.unknowntld`
+  else if (path && !path.startsWith('/')) {
+    if (hasKnownTld(path) || hasLocalhost(path)) {
+      return {
+        type: 'url',
+        label: 'Web URL',
+        matched: match[0],
+        url: `http://${match[0]}`,
+        scheme: 'http',
+      };
+    }
   }
 
   return null;

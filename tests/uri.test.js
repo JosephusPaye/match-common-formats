@@ -90,26 +90,6 @@ test('matchUri() matches URLs', () => {
       expected: null,
     },
     {
-      input: 'example.com',
-      expected: {
-        type: 'url',
-        label: 'Web URL',
-        matched: 'example.com',
-        url: 'http://example.com',
-        scheme: 'http',
-      },
-    },
-    {
-      input: 'example.com:2000/path/to/resource?s=query#fragment',
-      expected: {
-        type: 'url',
-        label: 'Web URL',
-        matched: 'example.com:2000/path/to/resource?s=query#fragment',
-        url: 'http://example.com:2000/path/to/resource?s=query#fragment',
-        scheme: 'http',
-      },
-    },
-    {
       input: '/example',
       expected: null,
     },
@@ -130,6 +110,82 @@ test('matchUri() matches URLs', () => {
       expected: null,
     },
     {
+      input: 'example.local',
+      expected: {
+        type: 'url',
+        label: 'Web URL',
+        matched: 'example.local',
+        url: 'http://example.local',
+        scheme: 'http',
+      },
+    },
+    {
+      input: 'localhost',
+      expected: {
+        type: 'url',
+        label: 'Web URL',
+        matched: 'localhost',
+        url: 'http://localhost',
+        scheme: 'http',
+      },
+    },
+    {
+      input: 'localhost:2000/path/to/resource.html?s=query#fragment',
+      expected: {
+        type: 'url',
+        label: 'Web URL',
+        matched: 'localhost:2000/path/to/resource.html?s=query#fragment',
+        url: 'http://localhost:2000/path/to/resource.html?s=query#fragment',
+        scheme: 'http',
+      },
+    },
+    {
+      input:
+        'sub-b.sub-a.localhost:2000/path/to/resource.html?s=query#fragment',
+      expected: {
+        type: 'url',
+        label: 'Web URL',
+        matched:
+          'sub-b.sub-a.localhost:2000/path/to/resource.html?s=query#fragment',
+        url:
+          'http://sub-b.sub-a.localhost:2000/path/to/resource.html?s=query#fragment',
+        scheme: 'http',
+      },
+    },
+    {
+      input: 'example.com',
+      expected: {
+        type: 'url',
+        label: 'Web URL',
+        matched: 'example.com',
+        url: 'http://example.com',
+        scheme: 'http',
+      },
+    },
+    {
+      input: 'example.com:2000/path/to/resource.html?s=query#fragment',
+      expected: {
+        type: 'url',
+        label: 'Web URL',
+        matched: 'example.com:2000/path/to/resource.html?s=query#fragment',
+        url: 'http://example.com:2000/path/to/resource.html?s=query#fragment',
+        scheme: 'http',
+      },
+    },
+    {
+      input:
+        'sub-b.sub-a.example.com:2000/path/to/resource.html?s=query#fragment',
+      expected: {
+        type: 'url',
+        label: 'Web URL',
+        matched:
+          'sub-b.sub-a.example.com:2000/path/to/resource.html?s=query#fragment',
+        url:
+          'http://sub-b.sub-a.example.com:2000/path/to/resource.html?s=query#fragment',
+        scheme: 'http',
+      },
+    },
+    {
       input: 'HTTP://example.com',
       expected: {
         type: 'url',
@@ -141,14 +197,14 @@ test('matchUri() matches URLs', () => {
     },
     {
       input:
-        'http://username:password@b.a.example.com/path/to/resource?s=query#fragment',
+        'http://username:password@b.a.example.com/path/to/resource.html?s=query#fragment',
       expected: {
         type: 'url',
         label: 'Web URL',
         matched:
-          'http://username:password@b.a.example.com/path/to/resource?s=query#fragment',
+          'http://username:password@b.a.example.com/path/to/resource.html?s=query#fragment',
         url:
-          'http://username:password@b.a.example.com/path/to/resource?s=query#fragment',
+          'http://username:password@b.a.example.com/path/to/resource.html?s=query#fragment',
         scheme: 'http',
       },
     },
@@ -164,14 +220,14 @@ test('matchUri() matches URLs', () => {
     },
     {
       input:
-        'https://username:password@b.a.example.com/path/to/resource?s=query#fragment',
+        'https://username:password@b.a.example.com/path/to/resource.html?s=query#fragment',
       expected: {
         type: 'url',
         label: 'Web URL',
         matched:
-          'https://username:password@b.a.example.com/path/to/resource?s=query#fragment',
+          'https://username:password@b.a.example.com/path/to/resource.html?s=query#fragment',
         url:
-          'https://username:password@b.a.example.com/path/to/resource?s=query#fragment',
+          'https://username:password@b.a.example.com/path/to/resource.html?s=query#fragment',
         scheme: 'https',
       },
     },

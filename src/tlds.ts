@@ -1505,4 +1505,8 @@ export const tlds = [
   'ZONE',
   'ZUERICH',
   'ZW',
+
+  // unofficial but useful
+  'LOCAL',
+  'LOCALHOST',
 ];

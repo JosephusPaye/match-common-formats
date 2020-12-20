@@ -17,8 +17,7 @@ const v4regex = new RegExp(`^${v4}$`);
  * Check if the given input matches an IPv4 address
  */
 function matchesIpv4(input: string) {
-  const match = v4regex.exec(input);
-  return Boolean(match);
+  return v4regex.test(input);
 }
 
 const v6segment = '[a-fA-F\\d]{1,4}';
@@ -43,8 +42,7 @@ const v6regex = new RegExp(`^${v6}$`);
  * Check if the given input matches an IPv6 address
  */
 function matchesIpv6(input: string) {
-  const match = v6regex.exec(input);
-  return Boolean(match);
+  return v6regex.test(input);
 }
 
 /**
