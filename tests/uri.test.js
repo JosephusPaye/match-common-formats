@@ -51,7 +51,7 @@ test('matchUri() matches URNs', () => {
       expected: {
         type: 'urn',
         label: 'oasis URN',
-        matched: 'urn:oasis:names:specification:docbook:dtd:xml:4.1.2',
+        input: 'urn:oasis:names:specification:docbook:dtd:xml:4.1.2',
         urn: 'urn:oasis:names:specification:docbook:dtd:xml:4.1.2',
         namespaceId: 'oasis',
         namespaceString: 'names:specification:docbook:dtd:xml:4.1.2',
@@ -62,7 +62,7 @@ test('matchUri() matches URNs', () => {
       expected: {
         type: 'urn',
         label: 'isbn URN',
-        matched: 'urn:isbn:0451450523',
+        input: 'urn:isbn:0451450523',
         urn: 'urn:isbn:0451450523',
         namespaceId: 'isbn',
         namespaceString: '0451450523',
@@ -114,7 +114,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'Web URL',
-        matched: 'example.local',
+        input: 'example.local',
         url: 'http://example.local',
         scheme: 'http',
       },
@@ -124,7 +124,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'Web URL',
-        matched: 'localhost',
+        input: 'localhost',
         url: 'http://localhost',
         scheme: 'http',
       },
@@ -134,7 +134,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'Web URL',
-        matched: 'localhost:2000/path/to/resource.html?s=query#fragment',
+        input: 'localhost:2000/path/to/resource.html?s=query#fragment',
         url: 'http://localhost:2000/path/to/resource.html?s=query#fragment',
         scheme: 'http',
       },
@@ -145,7 +145,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'Web URL',
-        matched:
+        input:
           'sub-b.sub-a.localhost:2000/path/to/resource.html?s=query#fragment',
         url:
           'http://sub-b.sub-a.localhost:2000/path/to/resource.html?s=query#fragment',
@@ -157,7 +157,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'Web URL',
-        matched: 'example.com',
+        input: 'example.com',
         url: 'http://example.com',
         scheme: 'http',
       },
@@ -167,7 +167,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'Web URL',
-        matched: 'example.com:2000/path/to/resource.html?s=query#fragment',
+        input: 'example.com:2000/path/to/resource.html?s=query#fragment',
         url: 'http://example.com:2000/path/to/resource.html?s=query#fragment',
         scheme: 'http',
       },
@@ -178,7 +178,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'Web URL',
-        matched:
+        input:
           'sub-b.sub-a.example.com:2000/path/to/resource.html?s=query#fragment',
         url:
           'http://sub-b.sub-a.example.com:2000/path/to/resource.html?s=query#fragment',
@@ -190,7 +190,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'Web URL',
-        matched: 'HTTP://example.com',
+        input: 'HTTP://example.com',
         url: 'HTTP://example.com',
         scheme: 'http',
       },
@@ -201,7 +201,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'Web URL',
-        matched:
+        input:
           'http://username:password@b.a.example.com/path/to/resource.html?s=query#fragment',
         url:
           'http://username:password@b.a.example.com/path/to/resource.html?s=query#fragment',
@@ -213,7 +213,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'Web URL',
-        matched: 'HTTPS://example.com',
+        input: 'HTTPS://example.com',
         url: 'HTTPS://example.com',
         scheme: 'https',
       },
@@ -224,7 +224,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'Web URL',
-        matched:
+        input:
           'https://username:password@b.a.example.com/path/to/resource.html?s=query#fragment',
         url:
           'https://username:password@b.a.example.com/path/to/resource.html?s=query#fragment',
@@ -236,7 +236,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'ftp URL',
-        matched: 'ftp://user:password@127.0.0.1',
+        input: 'ftp://user:password@127.0.0.1',
         url: 'ftp://user:password@127.0.0.1',
         scheme: 'ftp',
       },
@@ -246,7 +246,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'telnet URL',
-        matched: 'telnet://192.0.2.16:80/',
+        input: 'telnet://192.0.2.16:80/',
         url: 'telnet://192.0.2.16:80/',
         scheme: 'telnet',
       },
@@ -256,7 +256,7 @@ test('matchUri() matches URLs', () => {
       expected: {
         type: 'url',
         label: 'ldap URL',
-        matched: 'ldap://[2001:db8::7]/c=GB?objectClass?one',
+        input: 'ldap://[2001:db8::7]/c=GB?objectClass?one',
         url: 'ldap://[2001:db8::7]/c=GB?objectClass?one',
         scheme: 'ldap',
       },
@@ -284,7 +284,7 @@ test('matchUri() matches URIs', () => {
       expected: {
         type: 'uri',
         label: 'data URI',
-        matched:
+        input:
           'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==',
         uri:
           'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==',
@@ -296,7 +296,7 @@ test('matchUri() matches URIs', () => {
       expected: {
         type: 'uri',
         label: 'magnet URI',
-        matched: 'magnet:?xt=urn:btih:c12fe1c06bba254a9dc9f519b335aa7c1367a88a',
+        input: 'magnet:?xt=urn:btih:c12fe1c06bba254a9dc9f519b335aa7c1367a88a',
         uri: 'magnet:?xt=urn:btih:c12fe1c06bba254a9dc9f519b335aa7c1367a88a',
         scheme: 'magnet',
       },
@@ -306,7 +306,7 @@ test('matchUri() matches URIs', () => {
       expected: {
         type: 'uri',
         label: 'mailto URI',
-        matched: 'mailto:User.Name@example.com',
+        input: 'mailto:User.Name@example.com',
         uri: 'mailto:User.Name@example.com',
         scheme: 'mailto',
       },
@@ -316,7 +316,7 @@ test('matchUri() matches URIs', () => {
       expected: {
         type: 'uri',
         label: 'tel URI',
-        matched: 'tel:+1-816-555-1212',
+        input: 'tel:+1-816-555-1212',
         uri: 'tel:+1-816-555-1212',
         scheme: 'tel',
       },
@@ -326,7 +326,7 @@ test('matchUri() matches URIs', () => {
       expected: {
         type: 'uri',
         label: 'news URI',
-        matched: 'news:comp.infosystems.www.servers.unix',
+        input: 'news:comp.infosystems.www.servers.unix',
         uri: 'news:comp.infosystems.www.servers.unix',
         scheme: 'news',
       },

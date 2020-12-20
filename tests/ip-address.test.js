@@ -58,7 +58,7 @@ test('matchIpAddress() matches IPv4 addresses', () => {
       expected: {
         type: 'ip-address',
         label: 'IPv4 Address',
-        matched: ip,
+        input: ip,
         version: 'ipv4',
         address: ip,
       },
@@ -104,7 +104,7 @@ test('matchIpAddress() matches IPv6 addresses', () => {
       expected: {
         type: 'ip-address',
         label: 'IPv6 Address',
-        matched: ip,
+        input: ip,
         version: 'ipv6',
         address: ip,
       },

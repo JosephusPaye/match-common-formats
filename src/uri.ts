@@ -1,19 +1,19 @@
 import { tlds } from './tlds';
-import { Matched } from './main';
+import { MatchCommon } from './main';
 
-export interface Url extends Matched {
+export interface Url extends MatchCommon {
   type: 'url';
   url: string;
   scheme: string;
 }
 
-export interface Uri extends Matched {
+export interface Uri extends MatchCommon {
   type: 'uri';
   uri: string;
   scheme: string;
 }
 
-export interface Urn extends Matched {
+export interface Urn extends MatchCommon {
   type: 'urn';
   urn: string;
   namespaceId: string;
@@ -113,7 +113,7 @@ export function matchUri(string: string): Url | Uri | Urn | null {
     return {
       type: 'urn',
       label: namespaceId ? namespaceId + ' URN' : 'URN',
-      matched: match[0],
+      input: match[0],
       urn: match[0],
       namespaceId,
       namespaceString,
@@ -126,7 +126,7 @@ export function matchUri(string: string): Url | Uri | Urn | null {
       return {
         type: 'url',
         label: 'Web URL',
-        matched: match[0],
+        input: match[0],
         url: match[0],
         scheme: schemeNormalised,
       };
@@ -138,7 +138,7 @@ export function matchUri(string: string): Url | Uri | Urn | null {
       return {
         type: 'url',
         label: schemeNormalised + ' URL',
-        matched: match[0],
+        input: match[0],
         url: match[0],
         scheme: schemeNormalised,
       };
@@ -153,7 +153,7 @@ export function matchUri(string: string): Url | Uri | Urn | null {
       return {
         type: 'url',
         label: 'Web URL',
-        matched: match[0],
+        input: match[0],
         url: `http://${match[0]}`,
         scheme: 'http',
       };
@@ -161,7 +161,7 @@ export function matchUri(string: string): Url | Uri | Urn | null {
       return {
         type: 'uri',
         label: schemeNormalised + ' URI',
-        matched: match[0],
+        input: match[0],
         uri: match[0],
         scheme: schemeNormalised,
       };
@@ -174,7 +174,7 @@ export function matchUri(string: string): Url | Uri | Urn | null {
     return {
       type: 'uri',
       label: schemeNormalised + ' URI',
-      matched: match[0],
+      input: match[0],
       uri: match[0],
       scheme: schemeNormalised,
     };
@@ -188,7 +188,7 @@ export function matchUri(string: string): Url | Uri | Urn | null {
       return {
         type: 'url',
         label: 'Web URL',
-        matched: match[0],
+        input: match[0],
         url: `http://${match[0]}`,
         scheme: 'http',
       };

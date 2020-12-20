@@ -1,9 +1,9 @@
 // Regular expressions adapted from ip-regex@v4.2.0
 // https://github.com/sindresorhus/ip-regex/blob/v4.2.0/index.js
 
-import { Matched } from './main';
+import { MatchCommon } from './main';
 
-export interface IpAddress extends Matched {
+export interface IpAddress extends MatchCommon {
   type: 'ip-address';
   version: 'ipv4' | 'ipv6';
   address: string;
@@ -59,7 +59,7 @@ export function matchIpAddress(string: string): IpAddress | null {
     return {
       type: 'ip-address',
       label: 'IPv4 Address',
-      matched: input,
+      input: input,
       version: 'ipv4',
       address: input,
     };
@@ -69,7 +69,7 @@ export function matchIpAddress(string: string): IpAddress | null {
     return {
       type: 'ip-address',
       label: 'IPv6 Address',
-      matched: input,
+      input: input,
       version: 'ipv6',
       address: input,
     };
