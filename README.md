@@ -1,6 +1,6 @@
 # match-common-formats
 
-> Match a peice of text to common formats like URLs, email addresses, colors, and more.
+> Match a piece of text to common formats like URLs, email addresses, colors, and more.
 
 Due to the large number of formats to match, this project is completed in parts:
 
@@ -18,7 +18,7 @@ npm install -g @josephuspaye/match-common-formats
 
 ### Match with all matchers
 
-The following example shows how to match a peice of text with all matchers:
+The following example shows how to match a piece of text with all matchers:
 
 ```js
 import { match } from '@josephuspaye/match-common-formats';
@@ -59,7 +59,7 @@ console.log({ first, second });
 
 ### Match with select matchers
 
-The following example shows how to match a peice of text with select matchers:
+The following example shows how to match a piece of text with select matchers:
 
 ```js
 import {
@@ -96,7 +96,7 @@ console.log({ first, second });
 
 ### Match with a single matcher
 
-The following example shows how to match a peice of text with a single matcher:
+The following example shows how to match a piece of text with a single matcher:
 
 ```js
 import { match, matchIpAddress } from '@josephuspaye/match-common-formats';
