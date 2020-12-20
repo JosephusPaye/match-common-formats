@@ -16,9 +16,9 @@ npm install -g @josephuspaye/match-common-formats
 
 ## Usage
 
-### Match a string with all matchers
+### Match with all matchers
 
-The following example shows how to match strings with all matchers:
+The following example shows how to match a peice of text with all matchers:
 
 ```js
 import { match } from '@josephuspaye/match-common-formats';
@@ -57,9 +57,9 @@ console.log({ first, second });
 
 </details>
 
-### Match a string with select matchers
+### Match with select matchers
 
-The following example shows how to match strings with select matchers:
+The following example shows how to match a peice of text with select matchers:
 
 ```js
 import {
@@ -94,9 +94,9 @@ console.log({ first, second });
 
 </details>
 
-### Match a string with a single matcher
+### Match with a single matcher
 
-The following example shows how to match strings with a single matcher:
+The following example shows how to match a peice of text with a single matcher:
 
 ```js
 import { match, matchIpAddress } from '@josephuspaye/match-common-formats';
