@@ -1,0 +1,32 @@
+{
+  "name": "@josephuspaye/match-common-formats",
+  "version": "0.0.0",
+  "description": "Match a peice of text to common formats like URLs, email addresses, colors, and more.",
+  "main": "dist/main.js",
+  "repository": "https://github.com/JosephusPaye/match-common-formats.git",
+  "author": "Josephus Paye II",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "uvu -r esm tests/",
+    "format": "prettier --write \"src/**/*.ts\" \"*.{js,json,md}\"",
+    "format:check": "prettier --list-different \"src/**/*.ts\" \"*.{js,json,md}\""
+  },
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3",
+    "uvu": "^0.5.1"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true
+  }
+}
