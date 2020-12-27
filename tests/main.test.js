@@ -1,6 +1,5 @@
 // @ts-check
 
-import { version } from 'typescript';
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
 
@@ -64,6 +63,18 @@ test('match() matches with the defualt list of matchers', () => {
           input: '127.0.0.1',
           version: 'ipv4',
           address: '127.0.0.1',
+        },
+      ],
+    },
+    {
+      input: '#AAA',
+      expected: [
+        {
+          type: 'color',
+          label: 'Hexadecimal Color Code',
+          input: '#AAA',
+          format: 'hex',
+          color: '#aaa',
         },
       ],
     },
