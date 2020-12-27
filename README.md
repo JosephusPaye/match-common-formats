@@ -159,7 +159,13 @@ interface IpAddress extends MatchCommon {
   address: string;
 }
 
-type Match = Uri | Url | Urn | IpAddress;
+interface Color extends MatchCommon {
+  type: 'color';
+  format: 'hex' | 'rgb' | 'rgba' | 'hsl' | 'hsla';
+  color: string;
+}
+
+type Match = Uri | Url | Urn | IpAddress | Color;
 
 type Matcher = (string: string) => Match | null;
 
@@ -177,6 +183,11 @@ function matchUri(string: string): Url | Uri | Urn | null;
  * Match the given string to an IPv4 or IPv6 address
  */
 function matchIpAddress(string: string): IpAddress | null;
+
+/**
+ * Match the given string to a hex (RGB), rgb(), rgba(), hsl(), or hsla() color code
+ */
+function matchColor(string: string): Color | null;
 
 /**
  * Compare the given string to formats matched by the given matchers,

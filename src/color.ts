@@ -120,12 +120,9 @@ function matchHslColor(
 }
 
 /**
- * Match the given string to a hex, rgb, rgba, hsl, hsla, or named web color.
+ * Match the given string to a hex (RGB), rgb(), rgba(), hsl(), or hsla() color code
  */
-export function matchColor(
-  string: string,
-  options = { includeNamedColors: true }
-): Color | null {
+export function matchColor(string: string): Color | null {
   const input = string.trim();
 
   if (input.length === 0) {
