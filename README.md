@@ -5,7 +5,7 @@
 Due to the large number of formats to match, this project is completed in parts:
 
 - Part 1: _URIs (URIs + URNs + URLs)_ and _IP Addresses (IPv4 + IPv6)_: Published in [v0.1.0](https://github.com/JosephusPaye/match-common-formats/releases/tag/v0.1.0).
-- Part 2: _Colors (RGB hexadecimal (8, 6, 4, and 3-character codes), rgb(), rgba(), hsl(), and hsla(), with comma and space separators)_: Published in [v0.2.0](https://github.com/JosephusPaye/match-common-formats/releases/tag/v0.2.0).
+- Part 2: _Colors - RGB hexadecimal (8, 6, 4, and 3-character codes); `rgb()`, `rgba()`, `hsl()`, and `hsla()` (with comma and space separators)_: Published in [v0.2.0](https://github.com/JosephusPaye/match-common-formats/releases/tag/v0.2.0).
 
 This project is part of [#CreateWeekly](https://twitter.com/JosephusPaye/status/1214853295023411200), my attempt to create something new publicly every week in 2020.
 
