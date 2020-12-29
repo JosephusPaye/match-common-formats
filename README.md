@@ -6,7 +6,7 @@ Due to the large number of formats to match, this project is completed in parts:
 
 - Part 1: _URIs (URIs + URNs + URLs)_ and _IP Addresses (IPv4 + IPv6)_: Published in [v0.1.0](https://github.com/JosephusPaye/match-common-formats/releases/tag/v0.1.0).
 - Part 2: _Colors - RGB hexadecimal (8, 6, 4, and 3-character codes); `rgb()`, `rgba()`, `hsl()`, and `hsla()` (with comma and space separators)_: Published in [v0.2.0](https://github.com/JosephusPaye/match-common-formats/releases/tag/v0.2.0).
-- Part 3: _Email addresses and social tokens (@usernames and #hashtags)_: Published in [v0.3.0](https://github.com/JosephusPaye/match-common-formats/releases/tag/v0.3.0).
+- Part 3: _Email addresses and social tokens (@mentions and #hashtags)_: Published in [v0.3.0](https://github.com/JosephusPaye/match-common-formats/releases/tag/v0.3.0).
 
 This project is part of [#CreateWeekly](https://twitter.com/JosephusPaye/status/1214853295023411200), my attempt to create something new publicly every week in 2020.
 
@@ -143,6 +143,39 @@ console.log({ first, second });
 
 </details>
 
+## Available formats
+
+| Format                      | Type                  | Input example                           |
+| :-------------------------- | :-------------------- | :-------------------------------------- |
+| [URI][1]                    | `uri` (`data`)        | `data:image/png;base64,...`             |
+| [URN][2]                    | `urn` (`isbn`)        | `urn:isbn:0451450523`                   |
+| [URL][3]                    | `url` (`http`)        | `get.pizza`                             |
+| URL                         | `url` (`https`)       | `https://example.com`                   |
+| URL                         | `url` (`http`)        | `localhost:3000`                        |
+| [IP Address][4]             | `ip-address` (`ipv4`) | `127.0.0.1`                             |
+| IP Address                  | `ip-address` (`ipv6`) | `::1`                                   |
+| [RGB Color (Hex)][5]        | `color` (`hex`)       | `#bad`, `#bada55`, `#abcd`, `#aabbccdd` |
+| [RGB Color][5]              | `color` (`rgb`)       | `rgb(22, 22, 22)`                       |
+| RGB Alpha Color             | `color` (`rgba`)      | `rgba(22, 22, 22, 0.5)`                 |
+| [HSL Color][6]              | `color` (`hsl`)       | `hsl(22deg, 50%, 20%)`                  |
+| HSL Alpha Color             | `color` (`hsla`)      | `hsla(22deg, 50%, 20%, 80%)`            |
+| Email address\*             | `email-address`       | `john.doe+newsletters@example.com`      |
+| [Social token (mention)][7] | `mention`             | `@JosephusPaye`                         |
+| [Social token (hashtag)][8] | `hashtag`             | `#CreateWeekly`                         |
+
+[1]: https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
+[2]: https://en.wikipedia.org/wiki/Uniform_Resource_Name
+[3]: https://en.wikipedia.org/wiki/URL
+[4]: https://en.wikipedia.org/wiki/IP_address
+[5]: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#RGB_colors
+[6]: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#HSL_colors
+[7]: https://en.wikipedia.org/wiki/Mention_(blogging)
+[8]: https://en.wikipedia.org/wiki/Hashtag
+
+### Notes
+
+- The email address matcher is not technically "complete", as it doesn't match addresses with unknown TLDs, IP addresses, or special characters in the local part that are not `+`, `-`, `_`, or `.`. It is designed to match only a subset of technically valid email address, ones that are more "common".
+
 ## API
 
 ```ts
@@ -189,10 +222,10 @@ interface EmailAddress extends MatchCommon {
 }
 
 interface SocialToken extends MatchCommon {
-  type: 'username' | 'hashtag';
+  type: 'mention' | 'hashtag';
 
   /**
-   * The username or hashtag, with the # or @ prefix
+   * The mention or hashtag, with the @ or # prefix
    */
   token: string;
 }
@@ -227,7 +260,7 @@ function matchColor(string: string): Color | null;
 function matchEmailAddress(string: string): EmailAddress | null;
 
 /**
- * Match the given string to a social token (@username or #hashtag)
+ * Match the given string to a social token (@mention or #hashtag)
  */
 function matchSocialToken(string: string): SocialToken | null;
 

@@ -1,10 +1,10 @@
 import { MatchCommon } from './main';
 
 export interface SocialToken extends MatchCommon {
-  type: 'username' | 'hashtag';
+  type: 'mention' | 'hashtag';
 
   /**
-   * The username or hashtag, with the # or @ prefix
+   * The mention or hashtag, with the @ or # prefix
    */
   token: string;
 }
@@ -13,7 +13,7 @@ export interface SocialToken extends MatchCommon {
 const tokenRegex = /(?:^@([a-zA-Z0-9\-_]+)$)|(?:^#([a-zA-Z][a-zA-Z0-9_]*)$)/;
 
 /**
- * Match the given string to a social token (@username or #hashtag)
+ * Match the given string to a social token (@mention or #hashtag)
  */
 export function matchSocialToken(string: string): SocialToken | null {
   const input = string.trim();
@@ -30,8 +30,8 @@ export function matchSocialToken(string: string): SocialToken | null {
 
   if (match[1]) {
     return {
-      type: 'username',
-      label: 'Social Media Username',
+      type: 'mention',
+      label: 'Social Media Mention',
       token: `@${match[1]}`,
       input,
     };

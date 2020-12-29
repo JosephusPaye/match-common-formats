@@ -40,7 +40,7 @@ test('matchSocialToken() returns null for empty and whitespace-only input', () =
   }
 });
 
-test('matchSocialToken() does not match invalid usernames and hashtags', () => {
+test('matchSocialToken() does not match invalid mentions and hashtags', () => {
   const cases = [
     {
       input: 'ok', // missing @ or #
@@ -101,13 +101,13 @@ test('matchSocialToken() does not match invalid usernames and hashtags', () => {
   }
 });
 
-test('matchSocialToken() matches valid usernames', () => {
+test('matchSocialToken() matches valid mentions', () => {
   const cases = [
     {
       input: '@_',
       expected: {
-        type: 'username',
-        label: 'Social Media Username',
+        type: 'mention',
+        label: 'Social Media Mention',
         token: '@_',
         input: '@_',
       },
@@ -115,8 +115,8 @@ test('matchSocialToken() matches valid usernames', () => {
     {
       input: '@oK',
       expected: {
-        type: 'username',
-        label: 'Social Media Username',
+        type: 'mention',
+        label: 'Social Media Mention',
         token: '@oK',
         input: '@oK',
       },
@@ -124,8 +124,8 @@ test('matchSocialToken() matches valid usernames', () => {
     {
       input: '@_ok',
       expected: {
-        type: 'username',
-        label: 'Social Media Username',
+        type: 'mention',
+        label: 'Social Media Mention',
         token: '@_ok',
         input: '@_ok',
       },
@@ -133,8 +133,8 @@ test('matchSocialToken() matches valid usernames', () => {
     {
       input: '@_ok_',
       expected: {
-        type: 'username',
-        label: 'Social Media Username',
+        type: 'mention',
+        label: 'Social Media Mention',
         token: '@_ok_',
         input: '@_ok_',
       },
@@ -142,8 +142,8 @@ test('matchSocialToken() matches valid usernames', () => {
     {
       input: '@o_k',
       expected: {
-        type: 'username',
-        label: 'Social Media Username',
+        type: 'mention',
+        label: 'Social Media Mention',
         token: '@o_k',
         input: '@o_k',
       },
@@ -151,8 +151,8 @@ test('matchSocialToken() matches valid usernames', () => {
     {
       input: '@101',
       expected: {
-        type: 'username',
-        label: 'Social Media Username',
+        type: 'mention',
+        label: 'Social Media Mention',
         token: '@101',
         input: '@101',
       },
@@ -160,8 +160,8 @@ test('matchSocialToken() matches valid usernames', () => {
     {
       input: '@o22',
       expected: {
-        type: 'username',
-        label: 'Social Media Username',
+        type: 'mention',
+        label: 'Social Media Mention',
         token: '@o22',
         input: '@o22',
       },
@@ -169,8 +169,8 @@ test('matchSocialToken() matches valid usernames', () => {
     {
       input: '@o_22_',
       expected: {
-        type: 'username',
-        label: 'Social Media Username',
+        type: 'mention',
+        label: 'Social Media Mention',
         token: '@o_22_',
         input: '@o_22_',
       },
@@ -178,8 +178,8 @@ test('matchSocialToken() matches valid usernames', () => {
     {
       input: '@o_22_40',
       expected: {
-        type: 'username',
-        label: 'Social Media Username',
+        type: 'mention',
+        label: 'Social Media Mention',
         token: '@o_22_40',
         input: '@o_22_40',
       },
@@ -187,19 +187,19 @@ test('matchSocialToken() matches valid usernames', () => {
     {
       input: '@ok-boomer', // Services like GitHub allow hyphens
       expected: {
-        type: 'username',
-        label: 'Social Media Username',
+        type: 'mention',
+        label: 'Social Media Mention',
         token: '@ok-boomer',
         input: '@ok-boomer',
       },
     },
     {
-      input: '@AVeryLongUserName-With-All-the_things_22_20a22whyYouMad',
+      input: '@AVeryLongmention-With-All-the_things_22_20a22whyYouMad',
       expected: {
-        type: 'username',
-        label: 'Social Media Username',
-        token: '@AVeryLongUserName-With-All-the_things_22_20a22whyYouMad',
-        input: '@AVeryLongUserName-With-All-the_things_22_20a22whyYouMad',
+        type: 'mention',
+        label: 'Social Media Mention',
+        token: '@AVeryLongmention-With-All-the_things_22_20a22whyYouMad',
+        input: '@AVeryLongmention-With-All-the_things_22_20a22whyYouMad',
       },
     },
   ];
