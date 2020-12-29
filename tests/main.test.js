@@ -124,9 +124,26 @@ test('match() matches with the defualt list of matchers', () => {
   }
 });
 
+test('match() stops matching after first match if `matchOne` option is set', () => {
+  assert.equal(
+    // would normally match a color code and a hashtag without `matchOne`
+    match('#bad', { matchOne: true }),
+    [
+      {
+        type: 'color',
+        label: 'Hexadecimal Color Code',
+        input: '#bad',
+        format: 'hex',
+        color: '#bad',
+      },
+    ],
+    `matches with \`{ matchOne: true }\` correctly`
+  );
+});
+
 test('match() matches with a custom list of matchers', () => {
-  assert.equal(match('example.com', [matchIpAddress]), []);
-  assert.equal(match('example.com', [matchUri]), [
+  assert.equal(match('example.com', { matchers: [matchIpAddress] }), []);
+  assert.equal(match('example.com', { matchers: [matchUri] }), [
     {
       type: 'url',
       label: 'Web URL',
@@ -136,8 +153,8 @@ test('match() matches with a custom list of matchers', () => {
     },
   ]);
 
-  assert.equal(match('127.0.0.1', [matchUri]), []);
-  assert.equal(match('127.0.0.1', [matchIpAddress]), [
+  assert.equal(match('127.0.0.1', { matchers: [matchUri] }), []);
+  assert.equal(match('127.0.0.1', { matchers: [matchIpAddress] }), [
     {
       type: 'ip-address',
       label: 'IPv4 Address',
@@ -147,14 +164,17 @@ test('match() matches with a custom list of matchers', () => {
     },
   ]);
 
-  assert.equal(match('come+and@get.some.pizza', [matchEmailAddress]), [
-    {
-      type: 'email-address',
-      label: 'Email Address',
-      input: 'come+and@get.some.pizza',
-      address: 'come+and@get.some.pizza',
-    },
-  ]);
+  assert.equal(
+    match('come+and@get.some.pizza', { matchers: [matchEmailAddress] }),
+    [
+      {
+        type: 'email-address',
+        label: 'Email Address',
+        input: 'come+and@get.some.pizza',
+        address: 'come+and@get.some.pizza',
+      },
+    ]
+  );
 });
 
 test.run();

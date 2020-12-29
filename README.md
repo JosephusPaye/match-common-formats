@@ -25,9 +25,9 @@ The following example shows how to match a piece of text with all matchers:
 ```js
 import { match } from '@josephuspaye/match-common-formats';
 
-const first = match('example.com');
-const second = match('192.168.0.1');
-const third = match('hello@example.com');
+const first = match('example.com'); // matches a URL
+const second = match('192.168.0.1'); // matches an IP address
+const third = match('hello@example.com'); // matches an email address and a URL
 
 console.log({ first, second, third });
 ```
@@ -75,6 +75,44 @@ console.log({ first, second, third });
 
 </details>
 
+### Stop matching after first match
+
+The following example shows how to match a piece of text with all matchers, stopping after the first match:
+
+```js
+import { match } from '@josephuspaye/match-common-formats';
+
+// Would normally match a hex color code and a hashtag, but specifying `matchOne`
+// stops after the first match, returning only the color match
+const matches = match('#bad', { matchOne: true });
+
+console.log({ matches });
+```
+
+<details>
+<summary>View output</summary>
+
+```json
+{
+  "matches": [
+    {
+      "input": "#bad",
+      "expected": [
+        {
+          "type": "color",
+          "label": "Hexadecimal Color Code",
+          "input": "#bad",
+          "format": "hex",
+          "color": "#bad"
+        }
+      ]
+    }
+  ]
+}
+```
+
+</details>
+
 ### Match with select matchers
 
 The following example shows how to match a piece of text with select matchers:
@@ -86,8 +124,8 @@ import {
   matchIpAddress,
 } from '@josephuspaye/match-common-formats';
 
-const first = match('example.com', [matchUri]);
-const second = match('example.com', [matchIpAddress]); // matches will be empty
+const first = match('example.com', { matchers: [matchUri] });
+const second = match('example.com', { matchers: [matchIpAddress] }); // matches will be empty
 
 console.log({ first, second });
 ```
@@ -112,9 +150,9 @@ console.log({ first, second });
 
 </details>
 
-### Match with a single matcher
+### Match with a specific matcher
 
-The following example shows how to match a piece of text with a single matcher:
+The following example shows how to match a piece of text with a specific matcher:
 
 ```js
 import { match, matchIpAddress } from '@josephuspaye/match-common-formats';
@@ -234,6 +272,19 @@ type Match = Uri | Url | Urn | IpAddress | Color | EmailAddress | SocialToken;
 
 type Matcher = (string: string) => Match | null;
 
+interface MatchOptions {
+  /**
+   * A list of matchers to apply, defaults to all matchers
+   */
+  matchers?: Matcher[];
+
+  /**
+   * Stop matching after the first match
+   * @default false
+   */
+  matchOne?: boolean;
+}
+
 /**
  * The default matchers
  */
@@ -265,13 +316,10 @@ function matchEmailAddress(string: string): EmailAddress | null;
 function matchSocialToken(string: string): SocialToken | null;
 
 /**
- * Compare the given string to formats matched by the given matchers,
- * and get all matches.
- *
- * @param string   The string to match
- * @param matchers A list of matchers to apply, defaults to all matchers
+ * Compare the given string to known formats, optionally only those
+ * matched by the given matchers, and get the matches
  */
-function match(string: string, matchers?: Matcher[]): Match[];
+function match(string: string, options?: MatchOptions): Match[];
 ```
 
 ## Licence

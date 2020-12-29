@@ -27,6 +27,19 @@ export type Match =
 
 export type Matcher = (string: string) => Match | null;
 
+export interface MatchOptions {
+  /**
+   * A list of matchers to apply, defaults to all matchers
+   */
+  matchers?: Matcher[];
+
+  /**
+   * Stop matching after the first match
+   * @default false
+   */
+  matchOne?: boolean;
+}
+
 /**
  * The default matchers
  */
@@ -39,16 +52,21 @@ export const defaultMatchers: Matcher[] = [
 ];
 
 /**
- * Compare the given string to formats matched by the given matchers,
- * and get all matches.
- *
- * @param string   The string to match
- * @param matchers A list of matchers to apply, defaults to all matchers
+ * Compare the given string to known formats, optionally only those
+ * matched by the given matchers, and get the matches
  */
-export function match(string: string, matchers = defaultMatchers): Match[] {
+export function match(string: string, options: MatchOptions = {}): Match[] {
   if (!string || string.trim().length === 0) {
     return [];
   }
+
+  const { matchers, matchOne } = Object.assign(
+    {
+      matchers: defaultMatchers,
+      matchOne: false,
+    },
+    options
+  );
 
   const allMatches: Match[] = [];
 
@@ -57,6 +75,10 @@ export function match(string: string, matchers = defaultMatchers): Match[] {
 
     if (match) {
       allMatches.push(match);
+
+      if (matchOne) {
+        break;
+      }
     }
   }
 
