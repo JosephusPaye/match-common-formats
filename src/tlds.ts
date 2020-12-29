@@ -1506,7 +1506,10 @@ export const tlds = [
   'ZUERICH',
   'ZW',
 
-  // unofficial but useful
+  // Special-use domains (https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains#Special-Use_Domains)
+  'EXAMPLE',
   'LOCAL',
   'LOCALHOST',
+  'ONION',
+  'TEST',
 ];

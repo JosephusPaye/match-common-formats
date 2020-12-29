@@ -3,7 +3,7 @@
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
 
-import { match, matchUri, matchIpAddress } from '../';
+import { match, matchUri, matchIpAddress, matchEmailAddress } from '../';
 
 function filterTestCases(cases) {
   let filtered = cases.filter((c) => c.only);
@@ -78,6 +78,24 @@ test('match() matches with the defualt list of matchers', () => {
         },
       ],
     },
+    {
+      input: 'come+and@get.some.pizza',
+      expected: [
+        {
+          type: 'email-address',
+          label: 'Email Address',
+          input: 'come+and@get.some.pizza',
+          address: 'come+and@get.some.pizza',
+        },
+        {
+          type: 'url',
+          label: 'Web URL',
+          input: 'come+and@get.some.pizza',
+          url: 'http://come+and@get.some.pizza',
+          scheme: 'http',
+        },
+      ],
+    },
   ];
 
   for (const testCase of filterTestCases(cases)) {
@@ -109,6 +127,15 @@ test('match() matches with a custom list of matchers', () => {
       input: '127.0.0.1',
       version: 'ipv4',
       address: '127.0.0.1',
+    },
+  ]);
+
+  assert.equal(match('come+and@get.some.pizza', [matchEmailAddress]), [
+    {
+      type: 'email-address',
+      label: 'Email Address',
+      input: 'come+and@get.some.pizza',
+      address: 'come+and@get.some.pizza',
     },
   ]);
 });

@@ -28,7 +28,7 @@ const extractTldRegex = /^(?:[^:\s]:[^:\s])?(?:[^\.\s/:]+\.)+([^\.\s:/]+)(?::\d+
  * The segment is a partial URL, with everything after `scheme://user:pass`,
  * so it could be (authority + path + ...) or (path + ...).
  */
-function hasKnownTld(segment: string): boolean {
+export function hasKnownTld(segment: string): boolean {
   const match = extractTldRegex.exec(segment);
 
   if (!match) {
@@ -52,7 +52,7 @@ const localhostRegex = /^(?:[^:\s]+:[^:\s]+)?(?:[^\.\s/:]+\.)*(localhost)(?::\d+
  * The segment is a partial URL, with everything after `scheme://user:pass`,
  * so it could be (authority + path + ...) or (path + ...).
  */
-function hasLocalhost(segment: string) {
+export function hasLocalhost(segment: string) {
   return localhostRegex.test(segment);
 }
 
