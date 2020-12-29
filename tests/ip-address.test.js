@@ -120,7 +120,7 @@ test('matchIpAddress() matches IPv6 addresses', () => {
   }
 });
 
-test("matchIpAddress() doesn't match non-IPv4 addresses", () => {
+test("matchIpAddress() doesn't match non-IPv6 addresses", () => {
   const cases = [
     '1:',
     ':1',

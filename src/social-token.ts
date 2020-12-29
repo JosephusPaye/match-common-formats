@@ -4,7 +4,7 @@ export interface SocialToken extends MatchCommon {
   type: 'username' | 'hashtag';
 
   /**
-   * The token with the '#' or '@' prefix
+   * The username or hashtag, with the # or @ prefix
    */
   token: string;
 }
