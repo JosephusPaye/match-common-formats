@@ -76,6 +76,12 @@ test('match() matches with the defualt list of matchers', () => {
           format: 'hex',
           color: '#aaa',
         },
+        {
+          type: 'hashtag',
+          label: 'Social Media Hashtag',
+          input: '#AAA',
+          token: '#AAA',
+        },
       ],
     },
     {
@@ -93,6 +99,17 @@ test('match() matches with the defualt list of matchers', () => {
           input: 'come+and@get.some.pizza',
           url: 'http://come+and@get.some.pizza',
           scheme: 'http',
+        },
+      ],
+    },
+    {
+      input: '#CreateWeekly',
+      expected: [
+        {
+          type: 'hashtag',
+          label: 'Social Media Hashtag',
+          input: '#CreateWeekly',
+          token: '#CreateWeekly',
         },
       ],
     },
