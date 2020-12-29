@@ -10,6 +10,10 @@ Due to the large number of formats to match, this project is completed in parts:
 
 This project is part of [#CreateWeekly](https://twitter.com/JosephusPaye/status/1214853295023411200), my attempt to create something new publicly every week in 2020.
 
+## Demo
+
+- <http://match-common-formats.netlify.com/>
+
 ## Installation
 
 ```bash
