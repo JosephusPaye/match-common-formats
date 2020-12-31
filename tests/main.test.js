@@ -113,6 +113,22 @@ test('match() matches with the defualt list of matchers', () => {
         },
       ],
     },
+    {
+      input: '2,000,000.00USD',
+      expected: [
+        {
+          type: 'currency',
+          label: 'USD Currency',
+          input: '2,000,000.00USD',
+          amount: 2000000,
+          currency: {
+            name: 'United States dollar',
+            code: 'USD',
+            symbol: '$',
+          }
+        },
+      ],
+    },
   ];
 
   for (const testCase of filterTestCases(cases)) {

@@ -3,12 +3,14 @@ import { matchUri, Uri, Url, Urn } from './uri';
 import { matchIpAddress, IpAddress } from './ip-address';
 import { matchEmailAddress, EmailAddress } from './email-address';
 import { matchSocialToken, SocialToken } from './social-token';
+import { matchCurrency, Currency } from './currency';
 
 export { matchColor, Color };
 export { matchUri, Uri, Url, Urn };
 export { matchIpAddress, IpAddress };
 export { matchEmailAddress, EmailAddress };
 export { matchSocialToken, SocialToken };
+export { matchCurrency, Currency };
 
 export interface MatchCommon {
   type: string;
@@ -23,7 +25,8 @@ export type Match =
   | IpAddress
   | Color
   | EmailAddress
-  | SocialToken;
+  | SocialToken
+  | Currency;
 
 export type Matcher = (string: string) => Match | null;
 
@@ -49,6 +52,7 @@ export const defaultMatchers: Matcher[] = [
   matchIpAddress,
   matchColor,
   matchSocialToken,
+  matchCurrency
 ];
 
 /**

@@ -7,6 +7,7 @@ Due to the large number of formats to match, this project is completed in parts:
 - Part 1: _URIs (URIs + URNs + URLs)_ and _IP Addresses (IPv4 + IPv6)_: Published in [v0.1.0](https://github.com/JosephusPaye/match-common-formats/releases/tag/v0.1.0).
 - Part 2: _Colors - RGB hexadecimal (8, 6, 4, and 3-character codes); `rgb()`, `rgba()`, `hsl()`, and `hsla()` (with comma and space separators)_: Published in [v0.2.0](https://github.com/JosephusPaye/match-common-formats/releases/tag/v0.2.0).
 - Part 3: _Email addresses_ and _social tokens (@mentions and #hashtags)_: Published in [v0.3.0](https://github.com/JosephusPaye/match-common-formats/releases/tag/v0.3.0).
+- Part 4: _Currency (e.g. 2,000AUD or LRD2,000,000.75)_: Published in [v0.4.0](https://github.com/JosephusPaye/match-common-formats/releases/tag/v0.4.0).
 
 This project is part of [#CreateWeekly](https://twitter.com/JosephusPaye/status/1214853295023411200), my attempt to create something new publicly every week in 2020.
 
@@ -204,6 +205,8 @@ console.log({ first, second });
 | Email address\*             | `email-address`       | `john.doe+newsletters@example.com`      |
 | [Social token (mention)][7] | `mention`             | `@JosephusPaye`                         |
 | [Social token (hashtag)][8] | `hashtag`             | `#CreateWeekly`                         |
+| Currency                    | `currency`            | `2,000,000LRD`                          |
+| Currency                    | `currency`            | `AUD2000.00`                            |
 
 [1]: https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
 [2]: https://en.wikipedia.org/wiki/Uniform_Resource_Name
@@ -272,7 +275,28 @@ interface SocialToken extends MatchCommon {
   token: string;
 }
 
-type Match = Uri | Url | Urn | IpAddress | Color | EmailAddress | SocialToken;
+interface KnownCurrency {
+  code: string;
+  name: string;
+  symbol: string;
+  otherSymbols?: string[];
+}
+
+interface Currency extends MatchCommon {
+  type: 'currency';
+  currency: KnownCurrency;
+  amount: number;
+}
+
+type Match =
+  | Uri
+  | Url
+  | Urn
+  | IpAddress
+  | Color
+  | EmailAddress
+  | SocialToken
+  | Currency;
 
 type Matcher = (string: string) => Match | null;
 
@@ -318,6 +342,18 @@ function matchEmailAddress(string: string): EmailAddress | null;
  * Match the given string to a social token (@mention or #hashtag)
  */
 function matchSocialToken(string: string): SocialToken | null;
+
+/**
+ * Match the given string to a currency value
+ */
+function matchCurrency(
+  string: string,
+  options?: {
+    matchSymbol?: boolean;
+    decimalSymbol?: ',' | '.';
+    thousandSeparator?: ',' | '.' | ' ';
+  }
+): Currency | null;
 
 /**
  * Compare the given string to known formats, optionally only those
