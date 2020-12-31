@@ -52,7 +52,7 @@ export const defaultMatchers: Matcher[] = [
   matchIpAddress,
   matchColor,
   matchSocialToken,
-  matchCurrency
+  matchCurrency,
 ];
 
 /**
